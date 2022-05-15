@@ -1,0 +1,15 @@
+﻿@model IEnumerable<JqueryAjaxCrud.Models.TransactionModel>
+
+@{
+    ViewData["Title"] = "Index";
+}
+
+<h1>Transaction History</h1>
+
+@*<p>
+    <a asp-action="Create">Create New</a>
+</p>*@
+<div id="view-all">
+    @* call a partial View *@
+    @await Html.PartialAsync("_ViewAll" , Model)
+</div>

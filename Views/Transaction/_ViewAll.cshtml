@@ -1,0 +1,55 @@
+﻿@model IEnumerable<JqueryAjaxCrud.Models.TransactionModel>
+@*
+    For more information on enabling MVC for empty projects, visit http://go.microsoft.com/fwlink/?LinkID=397860
+*@
+<table class="table">
+    <thead>
+        <tr>
+            <th>
+                @Html.DisplayNameFor(model => model.AccountNumber)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.BeneficiaryName)
+            </th>
+            <th>
+                @Html.DisplayNameFor(model => model.Date)
+            </th>
+
+            <th>
+                @Html.DisplayNameFor(model => model.Amount)
+            </th>
+            @* Context.Request.Scheme  to Append the base UrL of the App *@
+            @* Action Returns the URL *@
+            <th>
+                <a onclick="showInPopup('@Url.Action("AddOrEdit" , "Transaction" , null , Context.Request.Scheme)', 'New Transaction')" class="btn btn-success text-white">Create transaction</a>
+            </th>
+        </tr>
+    </thead>
+    <tbody>
+        @foreach (var item in Model)
+        {
+            <tr>
+                <td>
+                    @Html.DisplayFor(modelItem => item.AccountNumber)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.BeneficiaryName)
+                </td>
+                <td>
+                    @Html.DisplayFor(modelItem => item.Date)
+                </td>
+
+                <td>    
+                    @Html.DisplayFor(modelItem => item.Amount)
+                </td>
+                <td>
+                    <a onclick="showInPopup('@Url.Action("AddOrEdit" , "Transaction" , new  { id = item.TransactionId } , Context.Request.Scheme)', 'Update Transaction')" class="btn btn-success text-white">Edit transaction</a> |
+                    <form asp-action="Delete" asp-route-id="@item.TransactionId" onsubmit="return jQueryAjaxDelete(this);"
+                          class="d-inline">
+                        <input type="submit" value="Delete" class="btn btn-danger" />
+                    </form>
+                </td>
+            </tr>
+        }
+    </tbody>
+</table>
